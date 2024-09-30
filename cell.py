@@ -13,22 +13,43 @@ class Cell():
         self._y1 = 0
         self._y2 = 0
         self._win = win
+        self.visited = False
     
-    def draw(self, x1, y1, x2, y2):
-        self._x1 = x1
-        self._x2 = x2
-        self._y1 = y1
-        self._y2 = y2
+    def draw(self, x1=None, y1=None, x2=None, y2=None):
+        if x1 is not None:
+            self._x1 = x1
+        if x2 is not None:
+            self._x2 = x2
+        if y1 is not None:
+            self._y1 = y1
+        if y2 is not None:
+            self._y2 = y2
+            
+        color = "black"
+        wall_color = "black"
+        no_wall_color = "#D9D9D9"
 
         if self._win is not None:
             if self.has_left_wall:
-                self._win.draw_line(Line(Point(self._x1, self._y1), Point(self._x1, self._y2)), "black")
+                color = wall_color
+            else:
+                color = no_wall_color
+            self._win.draw_line(Line(Point(self._x1, self._y1), Point(self._x1, self._y2)), color)
             if self.has_right_wall:
-                self._win.draw_line(Line(Point(self._x2, self._y1), Point(self._x2, self._y2)), "black")
+                color = wall_color
+            else:
+                color = no_wall_color
+            self._win.draw_line(Line(Point(self._x2, self._y1), Point(self._x2, self._y2)), color)
             if self.has_top_wall:
-                self._win.draw_line(Line(Point(self._x1, self._y1), Point(self._x2, self._y1)), "black")
+                color = wall_color
+            else:
+                color = no_wall_color
+            self._win.draw_line(Line(Point(self._x1, self._y1), Point(self._x2, self._y1)), color)
             if self.has_bottom_wall:
-                self._win.draw_line(Line(Point(self._x1, self._y2), Point(self._x2, self._y2)), "black")
+                color = wall_color
+            else:
+                color = no_wall_color
+            self._win.draw_line(Line(Point(self._x1, self._y2), Point(self._x2, self._y2)), color)
     
     def draw_move(self, to_cell, undo=False):
 
